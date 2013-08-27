@@ -59,6 +59,7 @@
 
 					<div class="nav-collapse collapse">
 						<ul class="nav">
+						<li><img src="/assets/img/ivoter-logo.png" hspace="20"></a></li>
 							<li {{ (Request::is('/') ? ' class="active"' : '') }}><a href="{{{ URL::to('') }}}">Home</a></li>
 						</ul>
 
