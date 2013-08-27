@@ -455,8 +455,7 @@ header {
 
 }
 
-/* Icons
--------------------------------------------------- */
+/* -------------------------------------------------- */
 
 .panel {
  padding: 40px;
@@ -468,4 +467,13 @@ header {
  box-shadow: 0 0 5px rgba(199, 199, 199, 1);
  background-color: rgb(238, 238, 238);
  border-radius: 6px 6px 6px 6px;
+}
+.answer-list {
+  list-style: none;
+  font-weight: 600;
+  font-size: 19px;
+  color: #777E83;
+}
+.answer-list li {
+  padding: 6px;
 }
