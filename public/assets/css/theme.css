@@ -24,57 +24,57 @@ textarea {
 /* Navbar
 -------------------------------------------------- */
 body.pull_top {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
 header {
-    background: rgba(0,0,0,.6) !important;
+  background: rgba(0,0,0,.6) !important;
 }
 .navbar.navbar-static-top {
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 .navbar.transparent.navbar-inverse .navbar-inner {
-    background: rgba(0,0,0,0.4);
-    border-bottom: 1px solid rgb(88, 88, 88);
+  background: rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgb(88, 88, 88);
 }
 .navbar.transparent.navbar-inverse .navbar-inner .container {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -webkit-transition: margin .2s ease-in-out;
-    -moz-transition: margin .2s ease-in-out;
-    transition: margin .2s ease-in-out;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-transition: margin .2s ease-in-out;
+  -moz-transition: margin .2s ease-in-out;
+  transition: margin .2s ease-in-out;
 }
 .navbar.navbar-inverse .navbar-inner {  
-    padding: 10px 0px 10px 0px;
-    background: #252528;    
+  padding: 10px 0px 10px 0px;
+  background: #252528;    
 }
 .navbar.navbar-inverse .navbar-inner.sticky {
-    background: rgba(0,0,0,0.8);
-    border-bottom: 1px solid #252525;
+  background: rgba(0,0,0,0.8);
+  border-bottom: 1px solid #252525;
 }
 .navbar-inverse .navbar-inner.sticky .container {
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
 .navbar-inverse .brand {
-    color: #fff;
+  color: #fff;
 }
 .navbar-inverse .nav > li > a {
-    /*color: rgb(177, 177, 177);*/
-    font-size: 13px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 1px 0 rgba(0,0,0,.5);
-    opacity: .6;
-    filter: alpha(opacity=60);
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    transition: all .2s linear;
+  /*color: rgb(177, 177, 177);*/
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0,0,0,.5);
+  opacity: .6;
+  filter: alpha(opacity=60);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  transition: all .2s linear;
 }
 .navbar-inverse .nav > li > a:hover,
 .navbar-inverse .nav > li > a.active {
-    color: #fff;
-    opacity: 1;
-    filter: alpha(opacity=100);
+  color: #fff;
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 .navbar-inverse .dropdown-menu {
 	background: #252528;
@@ -458,3 +458,14 @@ header {
 /* Icons
 -------------------------------------------------- */
 
+.panel {
+ padding: 40px;
+ margin-bottom: 20px;
+ font-size: 18px;
+ font-weight: 200;
+ line-height: 30px;
+ color: inherit;
+ box-shadow: 0 0 5px rgba(199, 199, 199, 1);
+ background-color: rgb(238, 238, 238);
+ border-radius: 6px 6px 6px 6px;
+}

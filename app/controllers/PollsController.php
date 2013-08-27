@@ -15,32 +15,28 @@ class PollsController extends BaseController {
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the polls.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{	
-		// $polls = Poll::all();
-		// $this->layout->content = View::make('polls.index')->with('polls', $polls);
-		
 		$polls = $this->poll->all();
 		$this->layout->content = View::make('polls.index', compact('polls'));
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new poll.
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-		// create form
 		$this->layout->content = View::make('polls.create');
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created poll in storage.
 	 *
 	 * @return Response
 	 */
@@ -54,11 +50,13 @@ class PollsController extends BaseController {
 			$poll = $this->poll->create($pollArray);
 			// loop through the options array and save to the db
 			foreach ($optionsArray as $option) {
-				$optPayload = array(
-					'content' => $option,
-					'polls_id' => $poll->id
-				);
-				$this->answer->create($optPayload);
+				if(!empty($option)) {
+					$optPayload = array(
+						'content' => $option,
+						'polls_id' => $poll->id
+						);
+					$this->answer->create($optPayload);
+				}
 			}
 			return Redirect::route('polls.index');
 		}
@@ -69,7 +67,7 @@ class PollsController extends BaseController {
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified poll.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -78,11 +76,12 @@ class PollsController extends BaseController {
 	{
 		// get the poll with id of $id and pass it to the view
 		$poll = $this->poll->findOrFail($id);
-		$this->layout->content = View::make('polls.show', compact('poll'));
+		$answers = Poll::find($id)->answers;
+		$this->layout->content = View::make('polls.show', compact('poll', 'answers'));
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing the specified poll.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -90,31 +89,58 @@ class PollsController extends BaseController {
 	public function edit($id)
 	{
 		$poll = $this->poll->find($id);
+
 		if(is_null($poll)) {
 			return Redirect::route('polls.index');
 		}
-		$this->layout->content = View::make('polls.edit', compact('poll'));
+		$answers = Poll::find($id)->answers;
+		$optMap = "";
+		foreach ($answers as $answer) {
+			$optMap .= $answer->id . "-";
+		}
+		$answers->optMap = substr($optMap, 0, -1); 
+		$this->layout->content = View::make('polls.edit', compact('poll', 'answers'));
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified poll in storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		// $input = Input::all();
+		$input = Input::all();
+		$pollArray = array('topic' => $input['topic']);
+		$optionsArray = $input['options'];
+		$optMap = explode('-', $input['optMap']);
 		$v = Validator::make($input, Poll::$rules);
-
 		if($v->passes()) {
 			$poll = $this->poll->find($id);
-			$poll->update($input);
-
+			$poll->update($pollArray);
+			// separate any old options from new ones 
+			// so we can easily update or create
+			$oldOpts = array();
+			$newOpts = array();
+			$countOld = count($optMap);
+			for($i = 0; $i < $countOld; $i++) {
+				$optPayload = array(
+					'content' => $optionsArray[$i],
+					'polls_id' => $poll->id
+					);
+				$answer = $this->answer->find($optMap[$i]);
+				$answer->update($optPayload);
+			}
+			// now finish out by creating the new options
+			for($i; $i < count($optionsArray); $i++) {
+				$optPayload = array(
+					'content' => $optionsArray[$i],
+					'polls_id' => $poll->id
+					);
+				$this->answer->create($optPayload);
+			}
 			return Redirect::route('polls.index');
 		}
-
 		return Redirect::route('polls.edit', $id)
 		->withInput()
 		->withErrors($v)
@@ -122,7 +148,7 @@ class PollsController extends BaseController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified poll from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
