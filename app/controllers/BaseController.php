@@ -1,6 +1,9 @@
 <?php
 
 class BaseController extends Controller {
+	
+	// Add this here to avoid calling in every controller or view
+	protected  $layout = "layouts.default";
 
 	/**
 	 * Setup the layout used by the controller.
