@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::resource('polls', 'PollsController');
+
+Route::resource('answers', 'AnswersController');
+
+Route::resource('votes', 'VotesController');
+
+
+# Index Page - Last route, no matches
+Route::get('/',  array('as' => 'homePage', 'uses' => 'PollsController@index'));
