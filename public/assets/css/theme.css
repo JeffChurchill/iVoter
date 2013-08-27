@@ -475,5 +475,14 @@ header {
   color: #777E83;
 }
 .answer-list li {
-  padding: 6px;
+  padding: 10px 6px;
+}
+.answer-list hr{
+  margin: 0;
+}
+.answer-list input {
+  margin-right: 6px;
+}
+.answer-list .btn {
+  margin: 12px 26px;
 }

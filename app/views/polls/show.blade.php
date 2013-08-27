@@ -14,9 +14,14 @@ Show a Poll  | iVoter
 		{{ Form::open(array('route' => 'votes.store')) }}
 		<input name="uip" type="hidden" value="<?php echo  $_SERVER['REMOTE_ADDR']; ?>">
 		<ul class="answer-list">
+			<li><hr></li>
 			@foreach ($answers as $answer)
-			<li>{{ $answer->content }}</li>
+			<li>{{ Form::radio('vote', $answer->id) }} {{ $answer->content }}</li>
 			@endforeach
+			<li>
+				<hr>
+				<button class="btn btn-primary">Vote</button>
+			</li>
 		</ul>
 
 		{{ Form::close() }}
