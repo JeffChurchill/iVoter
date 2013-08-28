@@ -10,9 +10,9 @@ Show a Poll  | iVoter
 <div class="row">
 	<div class="span6 offset3 panel">
 		<h2>{{ $poll->topic }}</h2>
-
 		{{ Form::open(array('route' => 'votes.store')) }}
 		<input name="uip" type="hidden" value="<?php echo  $_SERVER['REMOTE_ADDR']; ?>">
+		<input name="pid" type="hidden" value="{{ $poll->id }}">
 		<ul class="answer-list">
 			<li><hr></li>
 			@foreach ($answers as $answer)
@@ -23,7 +23,7 @@ Show a Poll  | iVoter
 				<button class="btn btn-primary">Vote</button>
 			</li>
 		</ul>
-
+		<small>Make a selection and then hit the button to cast your vote.</small>
 		{{ Form::close() }}
 	</div>
 </div>

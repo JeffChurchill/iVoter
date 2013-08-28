@@ -77,6 +77,12 @@ class PollsController extends BaseController {
 		// get the poll with id of $id and pass it to the view
 		$poll = $this->poll->findOrFail($id);
 		$answers = Poll::find($id)->answers;
+		$clentIp = $_SERVER['REMOTE_ADDR'];
+		$hasVoted = Vote::hasVoted($clentIp, $id);
+		if(!empty($hasVoted->id)) {
+			// let's show results
+			return View::make('polls.results',  compact('poll', 'answers'));
+		}
 		$this->layout->content = View::make('polls.show', compact('poll', 'answers'));
 	}
 
@@ -104,6 +110,7 @@ class PollsController extends BaseController {
 
 	/**
 	 * Update the specified poll in storage.
+	 *  TODO: this action is getting large. Move some stuff to the model
 	 *
 	 * @param  int  $id
 	 * @return Response

@@ -17,6 +17,5 @@ Route::resource('answers', 'AnswersController');
 
 Route::resource('votes', 'VotesController');
 
-
 # Index Page - Last route, no matches
 Route::get('/',  array('as' => 'homePage', 'uses' => 'PollsController@index'));

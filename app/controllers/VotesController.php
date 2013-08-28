@@ -2,6 +2,13 @@
 
 class VotesController extends BaseController {
 
+	protected $vote;
+
+	// inject the models into the controller
+	public function __construct( Vote $vote)
+	{
+		$this->vote = $vote;
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -29,7 +36,21 @@ class VotesController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::all();
+		$v = Validator::make($input, Vote::$rules);
+		if($v->passes()) {
+			$voteData = array(
+				'answers_id' => $input['vote'],
+				'polls_id' => $input['pid'],
+				'ip_address' => $input['uip'],
+			);
+			$vote = $this->vote->create($voteData);
+			return Redirect::route('polls.show', $input['pid']);
+		}
+		return Redirect::route('polls.show', $input['pid'])
+		->withInput()
+		->withErrors($v)
+		->with('message', 'There were validation errors');
 	}
 
 	/**
