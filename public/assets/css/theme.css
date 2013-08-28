@@ -486,3 +486,7 @@ header {
 .answer-list .btn {
   margin: 12px 26px;
 }
+
+h2 {
+  text-shadow: 1px 1px 0 #FFF;
+}

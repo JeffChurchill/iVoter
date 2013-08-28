@@ -14,4 +14,8 @@ class Poll extends Eloquent {
 		return $this->hasMany('Answer', 'polls_id')
 		->orderBy('answers.updated_at', 'asc');
 	}
+	public function votes()
+	{
+		return $this->hasMany('Vote', 'polls_id');
+	}
 }

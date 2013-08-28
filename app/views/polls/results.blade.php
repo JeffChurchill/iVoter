@@ -9,14 +9,21 @@ Show Results of a Poll  | iVoter
 
 <div class="row">
 	<div class="span6 offset3 panel">
-		<h2>{{ $poll->topic }}</h2>
+		<h2>{{ $poll->topic }} </h2>
 		<ul class="answer-list">
 			<li><hr></li>
-			@foreach ($answers as $answer)
-			<li>{{ $answer->content }}</li>
+			@foreach ($answersFinal as $answer)
+			<li>
+				<h4>{{ $answer['content'] }}</h4>
+				<div class="progress">
+					<div class="bar" style="width: <?php echo $answer['votes']/$totalVotes * 100;?>%;"></div> 
+				</div>  
+
+			</li>
 			@endforeach
 		</ul>
 	</div>
 </div>
 
 @stop
+

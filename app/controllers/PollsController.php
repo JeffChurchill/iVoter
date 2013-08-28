@@ -77,11 +77,23 @@ class PollsController extends BaseController {
 		// get the poll with id of $id and pass it to the view
 		$poll = $this->poll->findOrFail($id);
 		$answers = Poll::find($id)->answers;
+		$answersFinal = array();
+		foreach($answers as $answer) {
+			$answerVotes = Answer::countVotesForThisAnswer($answer->id);
+			$tempArray = array(
+				'id' => $answer->id,
+				'content' => $answer->content,
+				'votes' => $answerVotes[0]->voteCount
+			);
+			array_push($answersFinal, $tempArray);
+		}
 		$clentIp = $_SERVER['REMOTE_ADDR'];
+		// $clentIp = '123'; // override vote limit
 		$hasVoted = Vote::hasVoted($clentIp, $id);
 		if(!empty($hasVoted->id)) {
-			// let's show results
-			return View::make('polls.results',  compact('poll', 'answers'));
+			$totalVotes = Vote::getTotalCount($id);
+			$totalVotes = $totalVotes[0]->totalVotes;
+			return View::make('polls.results',  compact('poll', 'answersFinal', 'totalVotes'));
 		}
 		$this->layout->content = View::make('polls.show', compact('poll', 'answers'));
 	}
@@ -131,12 +143,19 @@ class PollsController extends BaseController {
 			$newOpts = array();
 			$countOld = count($optMap);
 			for($i = 0; $i < $countOld; $i++) {
-				$optPayload = array(
-					'content' => $optionsArray[$i],
-					'polls_id' => $poll->id
-					);
-				$answer = $this->answer->find($optMap[$i]);
-				$answer->update($optPayload);
+				if(empty($optionsArray[$i])) {
+					// field was emptied
+					// need to delete row from db
+					$this->answer->find($optMap[$i])->delete();
+				} else {
+					// we have an edited row. update it
+					$optPayload = array(
+						'content' => $optionsArray[$i],
+						'polls_id' => $poll->id
+						);
+					$answer = $this->answer->find($optMap[$i]);
+					$answer->update($optPayload);
+				}
 			}
 			// now finish out by creating the new options
 			for($i; $i < count($optionsArray); $i++) {

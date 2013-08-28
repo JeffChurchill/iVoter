@@ -42,13 +42,15 @@ window.onload = function() {
 				<div id="options">
 					@foreach ($answers as $answer)
 					<div class="option">
-						<input type="text" name="options[]" value="{{ $answer->content }}">
+						<input type="text" name="options[]" data-placeholder="$answer->id" value="{{ $answer->content }}">
 					</div>
 					@endforeach
 				</div>
 				<p><button class="btn"  type="button" id="addOptBtn" onclick='addOption();'><i class="icon-plus"></i> Add option</button></p>
 			</li>
 			<li>
+				<hr>
+				<a href="/"><button class="btn"  type="button" >Cancel</button></a>
 				{{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
 			</li>
 		</ul>

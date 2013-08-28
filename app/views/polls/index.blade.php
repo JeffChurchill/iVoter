@@ -15,7 +15,8 @@ List of Active Polls  | iVoter
 				<tr>
 					<td>
 						<strong>{{ $poll->topic }}</strong>
-						<div class="muted">{{ $poll->total_votes }} Votes</div>
+						<?php $totalVotes = Vote::getTotalCount($poll->id) ?>
+						<div class="muted"><?php echo $totalVotes[0]->totalVotes; ?> Votes</div> 
 					</td>
 					<td>
 						{{ link_to_route('polls.show', 'Show', array($poll->id), array('class' => 'btn btn-primary btn-mini')) }}
