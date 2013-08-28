@@ -19,7 +19,7 @@ List of Active Polls  | iVoter
 						<div class="muted"><?php echo $totalVotes[0]->totalVotes; ?> Votes</div> 
 					</td>
 					<td>
-						{{ link_to_route('polls.show', 'Show', array($poll->id), array('class' => 'btn btn-primary btn-mini')) }}
+						{{ link_to_route('polls.show', 'Show', array($poll->id), array('class' => 'btn btn-primary')) }}
 					</td>
 					<td>
 						{{ link_to_route('polls.edit', 'Edit', array($poll->id), array('class' => 'btn btn-info btn-mini')) }}
