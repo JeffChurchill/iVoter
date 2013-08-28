@@ -490,3 +490,9 @@ header {
 h2 {
   text-shadow: 1px 1px 0 #FFF;
 }
+.vote-tally {
+  float: right;
+  font-weight: 300;
+  font-size: 12px;
+  margin-top: -14px;
+}

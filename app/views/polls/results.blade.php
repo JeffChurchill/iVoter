@@ -18,7 +18,7 @@ Show Results of a Poll  | iVoter
 				<div class="progress">
 					<div class="bar" style="width: <?php echo $answer['votes']/$totalVotes * 100;?>%;"></div> 
 				</div>  
-
+				<div class="vote-tally"> <?php echo $answer['votes']; ?> out of <?php echo $totalVotes; ?> total votes</div>
 			</li>
 			@endforeach
 		</ul>
