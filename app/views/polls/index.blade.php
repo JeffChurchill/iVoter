@@ -14,7 +14,7 @@ List of Active Polls  | iVoter
 				@foreach($polls as $poll)
 				<tr>
 					<td>
-						<strong>{{ $poll->topic }}</strong>
+						<strong><i>{{ $poll->topic }}</i></strong>
 						<?php $totalVotes = Vote::getTotalCount($poll->id) ?>
 						<div class="muted"><?php echo $totalVotes[0]->totalVotes; ?> Votes</div> 
 					</td>
